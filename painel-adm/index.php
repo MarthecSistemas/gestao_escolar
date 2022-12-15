@@ -3,7 +3,7 @@
     //variaveis para o menu
     $pag = @$_GET["pag"];
     $menu1 = "secretarios";
-    $menu2 = "menu2";
+    $menu2 = "professores";
     $menu3 = "menu3";
     $menu4 = "menu4";
     $menu5 = "menu5";
@@ -25,7 +25,7 @@
         <meta name="description" content="">
         <meta name="author" content="Hugo Vasconcelos">
 
-        <title>Painel Administrativo</title>
+        <title>Gestão Escolar</title>
 
         <!-- Custom fonts for this template-->
         <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,14 +42,14 @@
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         
-         <link rel="shortcut icon" href="../../img/favicon0.ico" type="image/x-icon">
-    <link rel="icon" href="../../img/favicon0.ico" type="image/x-icon">
+         <link rel="shortcut icon" href="../img/icone.ico" type="image/x-icon">
+        <link rel="icon" href="../img/icone.ico" type="image/x-icon">
 
     </head>
 
     <body id="page-top">
 
-        <!-- Page Wrapper -->
+        <!-- Inicio Tela - Page Wrapper -->
         <div id="wrapper">
 
             <!-- Sidebar -->
@@ -84,7 +84,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Secretários</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Menu 2</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Professores</a>
                         </div>
                     </div>
                 </li>
@@ -135,15 +135,15 @@
                 </div>
 
             </ul>
-            <!-- End of Sidebar -->
+            <!-- Fim da Lateral de Menus -->
 
-            <!-- Content Wrapper -->
+            <!-- Inicio Area de Maior - Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Main Content -->
+                <!-- Área Principal - Main Content -->
                 <div id="content">
 
-                    <!-- Topbar -->
+                    <!-- Barra Superior -->
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                         <!-- Sidebar Toggle (Topbar) -->
@@ -159,7 +159,7 @@
 
 
 
-                            <!-- Nav Item - User Information -->
+                            <!-- Informações do Usuário na Barra Superior -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nome do usuario</span>
@@ -184,9 +184,9 @@
                         </ul>
 
                     </nav>
-                    <!-- End of Topbar -->
+                    <!-- Fim da Barra Superior -->
 
-                    <!-- Begin Page Content -->
+                    <!-- Início da Área de Manipulação das Informações -->
                     <div class="container-fluid">
 
                         <?php if (@$pag == null) { 
@@ -198,7 +198,7 @@
                         } else if (@$pag==$menu2) {
                         @include_once(@$menu2.".php");
 
-                         } else if (@$pag==$menu3) {
+                        } else if (@$pag==$menu3) {
                         include_once(@$menu3.".php");
 
                         } else if (@$pag==$menu4) {
@@ -209,29 +209,25 @@
 
                         } else if (@$pag==$menu6) {
                         @include_once(@$menu6.".php");
-
-                       
                         
                         } else {
                         @include_once("home.php");
                         }
                         ?>
-                        
-                        
-
+         
                     </div>
-                    <!-- /.container-fluid -->
+                    <!-- Fim da Área de Manipulação das Informações- /.container-fluid -->
 
                 </div>
-                <!-- End of Main Content -->
+                <!-- Fim Area Principal - End of Main Content -->
 
 
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- Fim Area Maior - End of Content Wrapper -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- Fim da Tela - End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
@@ -241,7 +237,7 @@
 
 
 
-        <!--  Modal Perfil-->
+        <!--  Modal Perfil - Mini Janelas Extras -->
         <div class="modal fade" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -339,6 +335,10 @@
 
         <!-- Page level custom scripts -->
         <script src="../js/demo/datatables-demo.js"></script>
+
+        <!-- Mascaras -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        <script src="../js/demo/mascaras.js"></script>
 
     </body>
 

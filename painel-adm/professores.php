@@ -1,6 +1,6 @@
 <?php 
-$pag = "secretarios";
-$tab = "secretarios";
+$pag = "professores";
+$tab = "professores";
 require_once("../conexao.php"); 
 
 /*
@@ -15,7 +15,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 ?>
 
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Secretário</a>
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Professor</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
     
 </div>
@@ -34,6 +34,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                         <th>Fone</th>
                         <th>Email</th>
                         <th>CPF</th>
+                        <th>Foto</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -53,6 +54,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                       $fone = $res[$i]['telefone'];
                       $email = $res[$i]['email'];
                       $cpf = $res[$i]['cpf'];
+                      $foto = $res[$i]['foto'];
                       $endereco = $res[$i]['endereco'];
                       $id = $res[$i]['id'];
                        
@@ -64,6 +66,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                         <td><?php echo $fone ?></td>
                         <td><?php echo $email ?></td>
                         <td><?php echo $cpf ?></td>
+                        <td><?php echo $foto ?></td>
                        
 
                         <td>
@@ -90,7 +93,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 
 <!-- Modal ADICIONAR, EDITAR OU EXCLUIR REGISTRO-->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <?php 
@@ -101,11 +104,13 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                     $query = $pdo->query("SELECT * FROM $tab where id = '" . $id2 . "' ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
+                    //recuperacao dos dados para a modal
                     $nome2 = $res[0]['nome'];
                     $email2 = $res[0]['email'];
                     $fone2 = $res[0]['telefone'];
                     $cpf2 = $res[0]['cpf'];
                     $endereco2 = $res[0]['endereco'];
+                    $foto = $res[0]['foto'];
                                                             
                 } else {
                     $titulo = "Inserir Registro";
@@ -122,27 +127,46 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
             </div>
             <form id="form" method="POST">
                 <div class="modal-body">
-                    <!--CAMPOS PARA INCLUIR OU EDITAR-->
-                    <div class="form-group">
-                        <label >Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--CAMPOS PARA INCLUIR OU EDITAR-->
+                            <div class="form-group">
+                                <label >Nome</label>
+                                <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <label >Email</label>
+                                <input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <label >CPF</label>
+                                <input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <label >Fone</label>
+                                <input value="<?php echo @$fone2 ?>" type="text" class="form-control" id="fone" name="fone" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <label >Endereço</label>
+                                <input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco" placeholder="Nome">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                    <label >Imagem</label>
+                                    <input type="file" value="<?php echo @$foto2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+                                </div>
+
+                                <div id="divImgConta">
+                                <?php if(@$foto2 != ""){ ?>
+                                    <img src="../img/<?php echo $tab ?>/<?php echo $foto2 ?>" width="170" height="170" id="target">
+                                <?php  }else{ ?>
+                                    <img src="../img/<?php echo $tab ?>/sem-foto.jpg" width="170" height="170" id="target">
+                                <?php } ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label >Email</label>
-                        <input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <label >CPF</label>
-                        <input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <label >Fone</label>
-                        <input value="<?php echo @$fone2 ?>" type="text" class="form-control" id="fone" name="fone" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <label >Endereço</label>
-                        <input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco" placeholder="Nome">
-                    </div>
+                    
 
                   
                    
