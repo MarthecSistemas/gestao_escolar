@@ -57,16 +57,41 @@ if($antigo2 != $email){
 	}
 }
 
+//SCRIPT PARA SUBIR FOTO NO BANCO / SERVIDOR
+$nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem']['name']);
+$caminho = '../../img/professores/' .$nome_img;
+if (@$_FILES['imagem']['name'] == ""){
+  $imagem = "sem-foto.jpg";
+}else{
+    $imagem = $nome_img;
+}
+
+$imagem_temp = @$_FILES['imagem']['tmp_name']; 
+$ext = pathinfo($imagem, PATHINFO_EXTENSION);   
+if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif'){ 
+move_uploaded_file($imagem_temp, $caminho);
+}else{
+	echo 'Extensão de Imagem não permitida!';
+	exit();
+}
+
+
 
 if($id == ""){
-	$res = $pdo->prepare("INSERT INTO $tab1 SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone");	
+	$res = $pdo->prepare("INSERT INTO $tab1 SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, foto = '$imagem'");	
 
 	$res2 = $pdo->prepare("INSERT INTO $tab2 SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, nivel = :nivel");	
 	$res2->bindValue(":senha", '123');
 	$res2->bindValue(":nivel", 'secretaria');
 
 }else{
-	$res = $pdo->prepare("UPDATE $tab1 SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone WHERE id = '$id'");
+	if($imagem == "sem-foto.jpg"){
+		$res = $pdo->prepare("UPDATE $tab1 SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone WHERE id = '$id'");
+	} else {
+		$res = $pdo->prepare("UPDATE $tab1 SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, foto = '$imagem ' WHERE id = '$id'");
+	}
+
+	
 
 	$res2 = $pdo->prepare("UPDATE $tab2 SET nome = :nome, cpf = :cpf, email = :email WHERE cpf = '$antigo'");	
 	

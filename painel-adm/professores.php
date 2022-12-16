@@ -66,7 +66,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                         <td><?php echo $fone ?></td>
                         <td><?php echo $email ?></td>
                         <td><?php echo $cpf ?></td>
-                        <td><?php echo $foto ?></td>
+                        <td><img src="../img/professores/<?php echo $foto ?>" width="50"></td>
                        
 
                         <td>
@@ -110,7 +110,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                     $fone2 = $res[0]['telefone'];
                     $cpf2 = $res[0]['cpf'];
                     $endereco2 = $res[0]['endereco'];
-                    $foto = $res[0]['foto'];
+                    $foto2 = $res[0]['foto'];
                                                             
                 } else {
                     $titulo = "Inserir Registro";
@@ -239,13 +239,15 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Dados do Secretário</h5>
+				<h5 class="modal-title">Dados do Professor</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
 
+            
+			<div class="modal-body">
+                <!-- Dados para a Modal de Visualização -->                    
 				<?php 
 				if (@$_GET['funcao'] == 'endereco') {
 					
@@ -258,16 +260,18 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 					$telefone3 = $res[0]['telefone'];
 					$email3 = $res[0]['email'];
 					$endereco3 = $res[0]['endereco'];
+                    $foto3 = $res[0]['foto'];
 					
 				} 
 
-
+                //MODAL DE VISUALIZAÇÃO
 				?>
 
 				<span><b>Nome: </b> <i><?php echo $nome3 ?></i><br>
 				<span><b>Telefone: </b> <i><?php echo $telefone3 ?></i> <span class="ml-4"><b>CPF: </b> <i><?php echo $cpf3 ?></i><br>
 				<span><b>Email: </b> <i><?php echo $email3 ?><br>
 				<span><b>Endereço: </b> <i><?php echo $endereco3 ?><br>
+                <span><b>Foto: </b><i><img src="../img/professores/<?php echo $foto3 ?>" width="150"><br>
 
 			</div>
 			
